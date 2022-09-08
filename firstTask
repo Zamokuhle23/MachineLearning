@@ -1,0 +1,27 @@
+import pandas as pd
+import numpy as np
+import random as rnd
+
+# visualization
+import seaborn as sns
+import matplotlib.pyplot as plt
+%matplotlib inline
+data_frame = pd.read_csv("tested.csv")
+
+#Распределение выживших среди мужчин и женщин по классу билета.
+data_frame.hist(column='Survived',by="Pclass")
+
+#Построить круговую диаграмму для признака "класс пассажира" (количество людей в каждом классе)
+class_df = data_frame["Pclass"].value_counts().rename_axis("Pclass").reset_index(name="Distribution")
+my_labels = class_df.Pclass
+values = class_df.Distribution
+fig = plt.figure()
+ax = fig.add_axes([0,0,1,1])
+ax.axis("equal")
+
+ax.pie(values,labels=my_labels,autopct='%1.2f%%')
+plt.show()
+
+
+#Построить распределение возрастов всех пассажиров.
+data_frame.hist(column='Age')
